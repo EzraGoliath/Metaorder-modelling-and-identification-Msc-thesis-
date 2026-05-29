@@ -12,7 +12,7 @@ This repository contains the python code used to implement the algorithms that g
 
 # Repository structure:
 
-Data: contains code for processing raw data and outputting .csv files used for the metaorder generation, plots and tables
+data_processing_notebooks: contains notebooks for processing raw data and outputting .parquet files used for the metaorder generation, plots and tables.
 
-Plots: contains the code for processing .csv files and outputting plots
+plotting_notebooks: contains the code for processing .parquet files and outputting plots.
 
