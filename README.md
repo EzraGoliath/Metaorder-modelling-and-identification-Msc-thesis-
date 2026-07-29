@@ -3,11 +3,13 @@
 
 
 ## Thesis information
-**Institution:** University of Cape Town
-**Programme:** MSc in Statistics and Data Science
-**Author:** Ezra Goliath
-**Supervisor:** Tim Gebbie
-**Status:** Work in progress
+- **Institution:** University of Cape Town 
+- **Programme:** MSc in Statistics and Data Science 
+- **Author:** Ezra Goliath 
+- **Supervisor:** Tim Gebbie 
+- **Status:** Work in progress
+
+> This repository accompanies the master's thesis *Metaorder Modelling and Identification*. The code and documentation may change while the thesis is under development.
 
 ## Overview
 
@@ -17,10 +19,20 @@ This repository contains the code used to reconstruct synthetic metaorders from 
 
 Market-order flow in financial markets exhibits long-range correlations. This is a widely known stylised fact of financial markets. A popular hypothesis for this stylised fact comes from the Lillo–Mike–Farmer (LMF) order-splitting theory. However, quantitative tests of this theory have historically relied on proprietary datasets with trader identifiers, limiting reproducibility and cross-market validation. We investigate whether it can be recovered from anonymous public data using synthetic metaorder reconstruction. Using transaction and quote data for the largest 239 stocks by market capitlisation on the JSE as of 13 March 2026, we conduct a grid search over reconstruction parameters and evaluate each configuration against established metaorder stylised facts and the LMF relation. Configurations selected to minimise errors across the metaorder stylised facts reproduce those properties but yield a poor LMF relation. In contrast, configurations selected to minimise error in the LMF relation reproduce the LMF relation but also reproduce the metaorder stylised facts well. These asymmetric results show that recovering the stylised facts alone is insufficient to identify LMF-consistent order splitting, while configurations consistent with LMF provide a stronger joint description of the reconstructed order flow. The findings support consistency with, rather than direct validation of, the LMF theory using anonymous market data.
 
+## Repository contents
 
-# Repository structure:
+- process transaction and quote data
+- reconstruct synthetic metaorders
+- evaluate reconstructed metaorders against empirical stylised facts
+- test consistency with the LMF exponent relation
+- perform parameter-grid searches
+- generate the figures and tables used in the thesis
+
+## Repository structure:
 
 data_processing_notebooks: contains notebooks for processing raw data and outputting .parquet files used for the metaorder generation, plots and tables.
 
 plotting_notebooks: contains the code for processing .parquet files and outputting plots.
+
+include some sort of file tree here so they can see how its supposed to be
 
