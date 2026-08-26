@@ -51,30 +51,28 @@ Figures and Results
 ### Directory Layout
 
 ```text
-.
+
 ├── Calibration_results/
 │   └── calibration_results.csv
 │
-├── Data_handling_notebooks/
-│   ├── retrieve_BMLL_data.ipynb
-│   ├── process_data.ipynb
-│   ├── metaorder_generation.ipynb
-│   └── grid_search.ipynb
-│
-├── Plotting_notebooks/
-│   ├── impact_curves.ipynb
-│   ├── independence_plots.ipynb
-│   ├── concave_profile.ipynb
-│   ├── decay_plots.ipynb
-│   └── alpha_gamma_plots.ipynb
+├── Data_processing_notebooks/
+│   ├── data_retriever_BMLL.ipynb   
+│   └── grid_search_BMLL.ipynb
 │
 ├── Modules/
-│   ├── synthetic_metaorders.py
-│   ├── alpha_gamma.py
-│   └── ...
+│   ├── metaorders.py
+│   └── LMF.py
+|
+├── Plotting_notebooks/
+│   ├── alpha_gamma_plots_BMLL.ipynb
+│   ├── calibration_results_BMLL.ipynb
+│   ├── concave_profile_plots_BMLL.ipynb
+│   ├── decay_plots_BMLL.ipynb
+|   |-- impact_curves_plots_BMLL.pynb
+│   └── time_independence_plots_BMLL.ipynb
 │
 ├── Stock_information/
-│   └── stock_information.csv
+│   └── JSE_companies_list.csv
 │
 └── README.md
 ```
