@@ -62,13 +62,13 @@ Figures and Results
 ├── Modules/
 │   ├── metaorders.py
 │   └── LMF.py
-|
+│
 ├── Plotting_notebooks/
 │   ├── alpha_gamma_plots_BMLL.ipynb
 │   ├── calibration_results_BMLL.ipynb
 │   ├── concave_profile_plots_BMLL.ipynb
 │   ├── decay_plots_BMLL.ipynb
-|   |-- impact_curves_plots_BMLL.pynb
+┃   ├── impact_curves_plots_BMLL.pynb
 │   └── time_independence_plots_BMLL.ipynb
 │
 ├── Stock_information/
