@@ -34,20 +34,6 @@ Market-order flow in financial markets exhibits long-range correlations. This is
 
 This repository contains the code, calibration outputs, and supporting data used in the thesis analysis and validation of the Lillo-Mike-Farmer (LMF) order-splitting framework.
 
-### Workflow
-
-```text
-BMLL Data
-    ↓
-Data_processing_notebooks
-    ↓
-Calibration_results
-    ↓
-Plotting_notebooks
-    ↓
-Figures and Results
-```
-
 ### Directory Layout
 
 ```text
@@ -114,4 +100,18 @@ Contains reusable Python modules implementing the core methodology developed in 
 #### `Stock_information/`
 
 Contains a CSV file that contains information on the stocks included in the analysis, such as ticker symbols, company names, and other metadata required for filtering and interpretation of results.
+
+### Workflow
+
+```text
+Retrieve raw order data from BMLL using the data_retriever_BMLL.pynb file.
+    ↓
+Perform a grid search and save the results to a CSV file using the grid_search_BMLL.pynb file
+    ↓
+Retrieve and interpret the grid search data using the calibration_results_BMLL.pynb file.
+    ↓
+Plot the relevant plots for the optimal configurations when minimising $e_{\mathrm{M}}$ and $e_{\mathrm{LMF}}$. All of this is done using the calibration_results_BMLL.pynb file.
+    ↓
+Individual plots can be acquired using the relevant plotting notebooks in the "Plotting_notebooks" folder.
+```
 
