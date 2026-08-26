@@ -39,7 +39,7 @@ This repository contains the code, calibration outputs, and supporting data used
 ```text
 BMLL Data
     ↓
-Data_handling_notebooks
+Data_processing_notebooks
     ↓
 Calibration_results
     ↓
@@ -68,7 +68,7 @@ Figures and Results
 │   ├── calibration_results_BMLL.ipynb
 │   ├── concave_profile_plots_BMLL.ipynb
 │   ├── decay_plots_BMLL.ipynb
-┃   ├── impact_curves_plots_BMLL.pynb
+│   ├── impact_curves_plots_BMLL.pynb
 │   └── time_independence_plots_BMLL.ipynb
 │
 ├── Stock_information/
@@ -81,9 +81,9 @@ Figures and Results
 
 #### `Calibration_results/`
 
-Contains the results of the parameter calibration procedure. The primary output is a CSV file containing the grid search results used throughout the analysis.
+Contains a CSV file containing the grid search results used throughout the analysis.
 
-#### `Data_handling_notebooks/`
+#### `Data_processing_notebooks/`
 
 Contains Jupyter notebooks used to:
 
@@ -113,5 +113,5 @@ Contains reusable Python modules implementing the core methodology developed in 
 
 #### `Stock_information/`
 
-Contains supplementary information on the stocks included in the analysis, such as ticker symbols, company names, and other metadata required for filtering and interpretation of results.
+Contains a CSV file that contains information on the stocks included in the analysis, such as ticker symbols, company names, and other metadata required for filtering and interpretation of results.
 
