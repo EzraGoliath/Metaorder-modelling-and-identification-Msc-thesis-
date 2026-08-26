@@ -30,9 +30,90 @@ Market-order flow in financial markets exhibits long-range correlations. This is
 
 ## Repository structure:
 
-data_processing_notebooks: contains notebooks for processing raw data and outputting .parquet files used for the metaorder generation, plots and tables.
+## Repository Structure
 
-plotting_notebooks: contains the code for processing .parquet files and outputting plots.
+This repository contains the code, calibration outputs, and supporting data used in the thesis analysis and validation of the Lillo-Mike-Farmer (LMF) order-splitting framework.
 
-include some sort of file tree here so they can see how its supposed to be
+### Workflow
+
+```text
+BMLL Data
+    ↓
+Data_handling_notebooks
+    ↓
+Calibration_results
+    ↓
+Plotting_notebooks
+    ↓
+Figures and Results
+```
+
+### Directory Layout
+
+```text
+.
+├── Calibration_results/
+│   └── calibration_results.csv
+│
+├── Data_handling_notebooks/
+│   ├── retrieve_BMLL_data.ipynb
+│   ├── process_data.ipynb
+│   ├── metaorder_generation.ipynb
+│   └── grid_search.ipynb
+│
+├── Plotting_notebooks/
+│   ├── impact_curves.ipynb
+│   ├── independence_plots.ipynb
+│   ├── concave_profile.ipynb
+│   ├── decay_plots.ipynb
+│   └── alpha_gamma_plots.ipynb
+│
+├── Modules/
+│   ├── synthetic_metaorders.py
+│   ├── alpha_gamma.py
+│   └── ...
+│
+├── Stock_information/
+│   └── stock_information.csv
+│
+└── README.md
+```
+
+### Folder Descriptions
+
+#### `Calibration_results/`
+
+Contains the results of the parameter calibration procedure. The primary output is a CSV file containing the grid search results used throughout the analysis.
+
+#### `Data_handling_notebooks/`
+
+Contains Jupyter notebooks used to:
+
+- Retrieve limit order book data from the BMLL platform.
+- Process and clean the raw data.
+- Generate synthetic metaorders.
+- Perform the calibration grid search for the metaorder generation model.
+
+#### `Plotting_notebooks/`
+
+Contains notebooks used to analyse calibration results and reproduce the figures presented in the thesis, including:
+
+- Market impact curves
+- Independence plots
+- Concave profile plots
+- Impact decay plots
+- Alpha-Gamma relationship plots
+
+#### `Modules/`
+
+Contains reusable Python modules implementing the core methodology developed in the thesis, including:
+
+- Synthetic metaorder generation
+- LMF model calculations
+- Alpha and Gamma estimation
+- Utility functions used across notebooks
+
+#### `Stock_information/`
+
+Contains supplementary information on the stocks included in the analysis, such as ticker symbols, company names, and other metadata required for filtering and interpretation of results.
 
