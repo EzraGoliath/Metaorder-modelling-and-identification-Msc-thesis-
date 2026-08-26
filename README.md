@@ -103,14 +103,14 @@ Contains a CSV file that contains information on the stocks included in the anal
 
 ### Workflow
 
-Retrieve raw order data from BMLL using the `data_retriever_BMLL.pynb` file.
+1. Retrieve raw order data from BMLL using the `data_retriever_BMLL.pynb` file.
     ↓
-Perform a grid search and save the results to a CSV file using the `grid_search_BMLL.pynb` file
+2. Perform a grid search and save the results to a CSV file using the `grid_search_BMLL.pynb` file
     ↓
-Retrieve and interpret the grid search data using the `calibration_results_BMLL.pynb` file.
+3. Retrieve and interpret the grid search data using the `calibration_results_BMLL.pynb` file.
     ↓
-Plot the relevant plots for the optimal configurations when minimising $e_{\mathrm{M}}$ and $e_{\mathrm{LMF}}$. All of this is done using the `calibration_results_BMLL.pynb` file.
+4. Plot the relevant plots for the optimal configurations when minimising $e_{\mathrm{M}}$ and $e_{\mathrm{LMF}}$. All of this is done using the `calibration_results_BMLL.pynb` file.
     ↓
-Individual plots can be acquired using the relevant plotting notebooks in the `Plotting_notebooks/` folder.
+5. Individual plots can be acquired using the relevant plotting notebooks in the `Plotting_notebooks/` folder.
 
 
