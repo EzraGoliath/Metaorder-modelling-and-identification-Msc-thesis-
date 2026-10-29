@@ -414,6 +414,75 @@ def decay_data(stock_data, group = 'day', N = 4, trader_participation_distributi
         
     else:
         return pl.DataFrame()
+
+def select_fitting_range(volume, impact, min_points = 10):
+
+    volume = np.asarray(volume)
+    impact = np.asarray(impact)
+
+    mask = (volume > 0) & (impact > 0)
+
+    volume = volume[mask]
+    impact = impact[mask]
+    
+    log_volume = np.log(volume)
+    log_impact = np.log(impact)
+
+    N = len(log_volume)
+
+    Sx  = np.cumsum(log_volume)
+    Sy  = np.cumsum(log_impact)
+    Sxx = np.cumsum(log_volume ** 2)
+    Syy = np.cumsum(log_impact ** 2)
+    Sxy = np.cumsum(log_volume * log_impact)
+
+    best_score = -np.inf
+
+    best_i = 0
+    best_j = N - 1
+    best_slope = np.nan
+    best_r2 = np.nan
+
+    for i in range(N):
+
+        for j in range(i + min_points - 1, N):
+
+            n = j - i + 1
+
+            sum_x  = Sx[j]  - (Sx[i-1]  if i > 0 else 0)
+            sum_y  = Sy[j]  - (Sy[i-1]  if i > 0 else 0)
+            sum_xx = Sxx[j] - (Sxx[i-1] if i > 0 else 0)
+            sum_yy = Syy[j] - (Syy[i-1] if i > 0 else 0)
+            sum_xy = Sxy[j] - (Sxy[i-1] if i > 0 else 0)
+
+            denom = n * sum_xx - sum_x ** 2
+
+            if denom <= 0:
+                continue
+
+            slope = (n * sum_xy - sum_x * sum_y) / denom
+            intercept = (sum_y - slope * sum_x) / n
+
+            ss_tot = sum_yy - sum_y**2 / n
+
+            if ss_tot <= 0:
+                continue
+
+            ss_res = (sum_yy + slope ** 2 * sum_xx + n * intercept ** 2 - 2 * slope * sum_xy - 2 * intercept * sum_y + 2 * slope * intercept * sum_x)
+
+            r2 = 1 - ss_res / ss_tot
+
+            # Penalise tiny windows
+            score = r2 #* np.sqrt(n)
+
+            if score > best_score:
+                best_score = score
+                best_i     = i
+                best_j     = j
+                best_slope = slope
+                best_r2    = r2
+
+    return best_i, best_j, best_slope, best_r2
         
 def metaorder_stylised_facts(stock_data, N, delta = 2, trader_participation_distribution = 'power', min_num_child_orders = 5):
 
@@ -440,7 +509,7 @@ def metaorder_stylised_facts(stock_data, N, delta = 2, trader_participation_dist
         beta_var_col                 = []
         beta_interval_half_width_col = []
     
-        execution_data_all   = execution_data(stock_data, group = 'year', N = N, trader_participation_distribution = trader_participation_distribution, delta = delta, min_num_child_orders = 1)
+        execution_data_all   = execution_data(stock_data, group = 'year', N = N, trader_participation_distribution = trader_participation_distribution, delta = delta, min_num_child_orders = 2)
         execution_data_all   = execution_data_all.with_columns(pl.col('Date').dt.truncate('1y').dt.year().alias('Year'))
         
         decay_data_all     = decay_data(stock_data, group = 'year', N = N, trader_participation_distribution = trader_participation_distribution, delta = delta, min_num_child_orders = min_num_child_orders)
@@ -485,15 +554,17 @@ def metaorder_stylised_facts(stock_data, N, delta = 2, trader_participation_dist
             
             bin_centers = (bins[:-1] + bins[1:]) / 2
             binned      = binned.with_columns(x_center = bin_centers)
-            
+
             alpha  = 0.5
             binned = binned.with_columns((alpha * pl.col('x_center').sqrt()).alias('sqrt_law'))
-    
+
+            i, j, exp_est, r_2 = select_fitting_range(binned['x_center'], binned['y_mean'], min_points = 15)
+            
             def sql_model(x, exp, Y):
                 return Y * x ** exp
                 
-            y = np.array(binned['y_mean'])
-            x = np.array(binned['x_center'])
+            y = np.array(binned['y_mean'][i:j])
+            x = np.array(binned['x_center'][i:j])
             
             mask       = (x > 0) & np.isfinite(y)
             x_fit      = x[mask]
@@ -739,7 +810,7 @@ def metaorder_stylised_facts(stock_data, N, delta = 2, trader_participation_dist
         beta_var_col                 = []
         beta_interval_half_width_col = []
     
-        execution_data_all   = execution_data(stock_data, group = 'year', N = N, trader_participation_distribution = trader_participation_distribution, delta = delta, min_num_child_orders = 1)
+        execution_data_all   = execution_data(stock_data, group = 'year', N = N, trader_participation_distribution = trader_participation_distribution, delta = delta, min_num_child_orders = 2) 
         execution_data_all   = execution_data_all.with_columns(pl.col('Date').dt.truncate('1y').dt.year().alias('Year'))
         
         decay_data_all     = decay_data(stock_data, group = 'year', N = N, trader_participation_distribution = trader_participation_distribution, delta = delta, min_num_child_orders = min_num_child_orders)
@@ -787,12 +858,14 @@ def metaorder_stylised_facts(stock_data, N, delta = 2, trader_participation_dist
             
             alpha  = 0.5
             binned = binned.with_columns((alpha * pl.col('x_center').sqrt()).alias('sqrt_law'))
-    
+
+            i, j, exp_est, r_2 = select_fitting_range(binned['x_center'], binned['y_mean'], min_points = 15)
+            
             def sql_model(x, exp, Y):
                 return Y * x ** exp
                 
-            y = np.array(binned['y_mean'])
-            x = np.array(binned['x_center'])
+            y = np.array(binned['y_mean'][i:j])
+            x = np.array(binned['x_center'][i:j])
             
             mask       = (x > 0) & np.isfinite(y)
             x_fit      = x[mask]
