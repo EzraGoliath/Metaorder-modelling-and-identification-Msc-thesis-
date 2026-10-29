@@ -13,7 +13,7 @@
 
 ## Overview
 
-This repository contains the code used to reconstruct synthetic metaorders from anonymous transaction and quote data and to evaluate their consistency with the Lillo–Mike–Farmer (LMF) order-splitting theory. The analysis uses data for 239 Johannesburg Stock Exchange securities and evaluates candidate reconstruction configurations against established metaorder stylised facts and the LMF exponent relation. The repository includes the data-processing, metaorder-reconstruction, model-evaluation, and figure-generation code used in the accompanying master's thesis pre-print. 
+This repository contains the code used to reconstruct synthetic metaorders from anonymous transaction and quote data and to evaluate their consistency with the Lillo–Mike–Farmer (LMF) order-splitting theory. The analysis uses data for 239 Johannesburg Stock Exchange securities and evaluates candidate reconstruction configurations against established metaorder stylised facts and the LMF exponent relation. The repository includes the data-processing, metaorder-reconstruction, model-evaluation, and figure-generation code used in the accompanying master's thesis. 
 
 ## Abstract
 
