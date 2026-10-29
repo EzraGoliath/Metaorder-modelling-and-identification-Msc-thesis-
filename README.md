@@ -21,18 +21,18 @@ Market-order flow in financial markets exhibits long-range autocorrelations, whe
 
 ## Repository contents
 
-- process transaction and quote data
-- reconstruct synthetic metaorders
+- process raw transaction and quote data from BMLL
+- perform grid search over synthetic metaorder generation parameters
+- reconstruct synthetic metaorders using optimal generation parameters
 - evaluate reconstructed metaorders against empirical stylised facts
 - test consistency with the LMF exponent relation
-- perform parameter-grid searches
 - generate the figures and tables used in the thesis
 
 ## Repository structure:
 
 ## Repository Structure
 
-This repository contains the code, calibration outputs, and supporting data used in the thesis analysis and validation of the Lillo-Mike-Farmer (LMF) order-splitting framework.
+This repository contains the code, calibration outputs, and supporting data used in the thesis analysis. 
 
 ### Directory Layout
 
@@ -67,7 +67,7 @@ This repository contains the code, calibration outputs, and supporting data used
 
 #### `Calibration_results/`
 
-Contains a CSV file containing the grid search results used throughout the analysis.
+Contains a CSV file containing the grid search results used to select optimal configurations based on the three calibration objectives.
 
 #### `Data_processing_notebooks/`
 
@@ -76,7 +76,7 @@ Contains Jupyter notebooks used to:
 - Retrieve limit order book data from the BMLL platform.
 - Process and clean the raw data.
 - Generate synthetic metaorders.
-- Perform the calibration grid search for the metaorder generation model.
+- Perform the grid search over generation parameters.
 
 #### `Plotting_notebooks/`
 
@@ -99,14 +99,14 @@ Contains reusable Python modules implementing the core methodology developed in 
 
 #### `Stock_information/`
 
-Contains a CSV file that contains information on the stocks included in the analysis, such as ticker symbols, company names, and other metadata required for filtering and interpretation of results.
+Contains a CSV file that contains information on the stocks included in the analysis, such as the tickers, company names, market capitalisation and other metadata required for filtering and interpretation of results.
 
 ### Workflow
 
-1. Retrieve raw order data from BMLL using the `data_retriever_BMLL.pynb` file.
-2. Perform a grid search and save the results to a CSV file using the `grid_search_BMLL.pynb` file
-3. Retrieve and interpret the grid search data using the `calibration_results_BMLL.pynb` file.
-4. Plot the relevant plots for the optimal configurations when minimising $e_{\mathrm{M}}$ and $e_{\mathrm{LMF}}$. All of this is done using the `calibration_results_BMLL.pynb` file.
-5. Individual plots can be acquired using the relevant plotting notebooks in the `Plotting_notebooks/` folder.
+1. Retrieve and pre-process the raw order data from BMLL using the `data_retriever_BMLL.pynb` file.
+2. Perform a grid search and save the results to a CSV file using the `grid_search_BMLL.pynb` file.
+3. Retrieve, process, find optimal configurations for each objective, and then generate synthetic metaorders using the optimal configuration settings using the `calibration_results_BMLL.pynb` file.
+4. Plot the relevant plots for the optimal configurations when minimising $e_{\mathrm{M}}$, $e_{\mathrm{LMF}}$ and $e_{\mathrm{combo}}$. This can be done using the `impact_curves_plots_BMLL.pynb`, `time_independence_plots_BMLL.pynb`, `concave_profile_plot_BMLL.pynb`, `decay_plots_BMLL.pynb`, `alpha_gamma_plots_BMLL.pynb`.
+
 
 
